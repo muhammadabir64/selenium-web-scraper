@@ -8,23 +8,23 @@ import csv
 browser = webdriver.Firefox()
 
 # Navigate to the login page and log in
-browser.get('https://demo.pharmacysoft.net/login')
+browser.get('https://example-site.com/login')
 email_field = browser.find_element(By.NAME, 'email')
 password_field = browser.find_element(By.NAME, 'password')
-email_field.send_keys('admin@bd.com')
-password_field.send_keys('12345678')
+email_field.send_keys('user@gmail.com')
+password_field.send_keys('pass123')
 password_field.send_keys(Keys.RETURN)
 
 # Wait for a few seconds to ensure the login is complete
 time.sleep(5)
 
 # URL of the page with the table to scrape
-base_url = 'https://demo.pharmacysoft.net/product/products'
+base_url = 'https://example-site.com/data'
 
 # Initialize a CSV file for writing
-with open('products.csv', 'w', newline='') as csv_file:
+with open('data.csv', 'w', newline='') as csv_file:
     csv_writer = csv.writer(csv_file)
-    csv_writer.writerow(['Product Name'])
+    csv_writer.writerow(['Column Name'])
 
     # Loop through pages and scrape data
     page_number = 1
@@ -34,7 +34,7 @@ with open('products.csv', 'w', newline='') as csv_file:
         browser.get(url)
 
         # Locate the table with product names
-        table = browser.find_element(By.ID, 'sampleTable')
+        table = browser.find_element(By.ID, 'table_id')
 
         # Scrape data from the table and append to the CSV file
         rows = table.find_elements(By.TAG_NAME, 'tr')
@@ -54,4 +54,4 @@ with open('products.csv', 'w', newline='') as csv_file:
 # Close the browser
 browser.quit()
 
-print('Data scraped and saved to products.csv')
+print('Data scraped and saved to data.csv')
